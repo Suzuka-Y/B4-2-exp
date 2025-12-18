@@ -1,0 +1,7 @@
+.DS_Store
+実験参加者名簿.txt
+*.sh3d
+*.csv
+results/
+qual/
+materials/sh3d/
