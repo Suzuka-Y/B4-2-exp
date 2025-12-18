@@ -6,7 +6,7 @@ Table result;
 
 int PID = 1;
 int state;
-boolean debug = true;
+boolean debug = false;
 
 void setup(){
   frameRate(60);

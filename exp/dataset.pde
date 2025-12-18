@@ -3,7 +3,7 @@ class set{
   set(String type){
     for(int j = 0; j < 2; j++){
       for(int k = 0; k < 7; k++) {
-        if(type == "normal" && k == 6) eval[j][k] = -1;
+        if(type.equals("normal") && k == 6) eval[j][k] = -1;
         else eval[j][k] = 1;
       }
     }

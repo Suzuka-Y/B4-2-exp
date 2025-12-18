@@ -14,27 +14,27 @@ void subject_infomation(){
   text("※生年月日を正しく入力しないと，次に進めません．", width/2, height*7/8);
   fill(255, 255, 0);
   float posX = 0;
-  if(target_SI == "date"){
-    if(target_SI_date == "year") posX = width*79/128;
-    if(target_SI_date == "month") posX = width*86/128;
-    if(target_SI_date == "day") posX = width*91/128;
+  if(target_SI.equals("date")){
+    if(target_SI_date.equals("year")) posX = width*79/128;
+    if(target_SI_date.equals("month")) posX = width*86/128;
+    if(target_SI_date.equals("day")) posX = width*91/128;
     text("↑", posX, height*11/32);
     text("↓", posX, height*13/32);
     text("<S> ↓", width/3, height*13/32);
   }
-  if(target_SI == "sex") text("<W> ↑", width/3, height*15/32);
-  if(sex == "male"){
-    if(target_SI != "sex") fill(255, 0, 255);
+  if(target_SI.equals("sex")) text("<W> ↑", width/3, height*15/32);
+  if(sex.equals("male")){
+    if(!target_SI.equals("sex")) fill(255, 0, 255);
   } else fill(255);
   text("男性", width*2/3 - 70, height*4/8);
   fill(255, 255, 0);
-  if(sex == "female"){
-    if(target_SI != "sex") fill(255, 0, 255);
+  if(sex.equals("female")){
+    if(!target_SI.equals("sex")) fill(255, 0, 255);
   } else fill(255);
   text("女性", width*2/3, height*4/8);
   fill(255, 255, 0);
-  if(sex == "others"){
-    if(target_SI != "sex") fill(255, 0, 255);
+  if(sex.equals("others")){
+    if(!target_SI.equals("sex")) fill(255, 0, 255);
   } else fill(255);
   text("その他", width*2/3 + 70, height*4/8);
 }
@@ -62,43 +62,43 @@ void subject_infomationKP(){
   if(key == 'w') target_SI = "date";
   if(key == 's') target_SI = "sex";
   if(keyCode == RIGHT){
-    if(target_SI == "date"){
-      if(target_SI_date == "year") target_SI_date = "month";
-      else if(target_SI_date == "month") target_SI_date = "day";
+    if(target_SI.equals("date")){
+      if(target_SI_date.equals("year")) target_SI_date = "month";
+      else if(target_SI_date.equals("month")) target_SI_date = "day";
     }
-    if(target_SI == "sex"){
-      if(sex == "male") sex = "female";
-      else if(sex == "female") sex = "others";
+    if(target_SI.equals("sex")){
+      if(sex.equals("male")) sex = "female";
+      else if(sex.equals("female")) sex = "others";
     }
   }
   if(keyCode == LEFT){
-    if(target_SI == "date"){
-      if(target_SI_date == "day") target_SI_date = "month";
-      else if(target_SI_date == "month") target_SI_date = "year";
+    if(target_SI.equals("date")){
+      if(target_SI_date.equals("day")) target_SI_date = "month";
+      else if(target_SI_date.equals("month")) target_SI_date = "year";
     }
-    if(target_SI == "sex"){
-      if(sex == "others") sex = "female";
-      else if(sex == "female") sex = "male";
+    if(target_SI.equals("sex")){
+      if(sex.equals("others")) sex = "female";
+      else if(sex.equals("female")) sex = "male";
     }
   }
-  if(keyCode == UP && target_SI == "date"){
-    if(target_SI_date == "year") year++;
-    if(target_SI_date == "month"){
+  if(keyCode == UP && target_SI.equals("date")){
+    if(target_SI_date.equals("year")) year++;
+    if(target_SI_date.equals("month")){
       if(month >= 12) month = 1;
       else month++;
     }
-    if(target_SI_date == "day"){
+    if(target_SI_date.equals("day")){
       if(day >= 31) day = 1;
       else day++;
     }
   }
-  if(keyCode == DOWN && target_SI == "date"){
-    if(target_SI_date == "year") year--;
-    if(target_SI_date == "month"){
+  if(keyCode == DOWN && target_SI.equals("date")){
+    if(target_SI_date.equals("year")) year--;
+    if(target_SI_date.equals("month")){
       if(month <= 1) month = 12;
       else month--;
     }
-    if(target_SI_date == "day"){
+    if(target_SI_date.equals("day")){
       if(day <= 1) day = 31;
       else day--;
     }

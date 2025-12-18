@@ -13,7 +13,7 @@ void running(){
     text("Set Index: " + (setOrder[setnum - 1] + 1), 100, 880);
   }
   else text("ベーステスト", width/2, 30);
-  if(disp == "row"){
+  if(disp.equals("row")){
     text("<E> 表示切り替え", width/2, 340);
     if(setnum > 0){
       for(int n = 1; n <= 3; n++) serectSet(n);
@@ -28,7 +28,7 @@ void running(){
       if(n == 7 && setnum > 0 && setOrder[setnum - 1] == 4) qset(7);
     } 
   }
-  if(disp == "enlarge"){
+  if(disp.equals("enlarge")){
     text("<E> 表示切り替え", width/2, 100);
     if(setnum == 0) image(bimg, width/2, height/2, 1200, 675);
     else{
@@ -53,12 +53,12 @@ void runningKP(){
   if(key == 'p') state = 7;
   if(key == 'h') state = 5;
   if(key == 'e'){
-    if(disp == "row"){
+    if(disp.equals("row")){
       disp = "enlarge";
       show = serect;
-    } else if(disp == "enlarge") disp = "row";
+    } else if(disp.equals("enlarge")) disp = "row";
   }
-  if(disp == "row"){
+  if(disp.equals("row")){
     if(keyCode == RIGHT && setnum > 0 && serect < 3){
       serect++;
       qserect = 1;
@@ -68,7 +68,7 @@ void runningKP(){
       qserect = 1;
     }
   }
-  if(disp == "enlarge"){
+  if(disp.equals("enlarge")){
     if(keyCode == RIGHT && setnum > 0 && show < 3) show++;
     if(keyCode == LEFT && setnum > 0 && show > 1) show--;
   }
