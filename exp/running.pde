@@ -1,7 +1,7 @@
 int setnum;//0: ベース，1~5: ランダムセット
 int show;//拡大表示した刺激の段階
-int serect;//選択中の刺激の段階
-int qserect;//各セットの選択中の質問番号
+int select;//選択中の刺激の段階
+int qselect;//各セットの選択中の質問番号
 String disp;//刺激表示方法
 
 void running(){
@@ -16,13 +16,13 @@ void running(){
   if(disp.equals("row")){
     text("<E> 表示切り替え", width/2, 340);
     if(setnum > 0){
-      for(int n = 1; n <= 3; n++) serectSet(n);
+      for(int n = 1; n <= 3; n++) selectSet(n);
       image(bimg, 1920/5/2+10, 150, 1920/5, 1080/5);
       image(img[setOrder[setnum - 1]][1], width-1920/5/2-10, 150, 1920/5, 1080/5);
     }
     if(setnum == 0) image(bimg, width/2, 150, 1920/5, 1080/5);
     else image(img[setOrder[setnum - 1]][0], width/2, 150, 1920/5, 1080/5);
-    if(setnum > 0) text(serect + "段階目の刺激に関して...", width*3/16 + 10, 340);
+    if(setnum > 0) text(select + "段階目の刺激に関して...", width*3/16 + 10, 340);
     for(int n = 1; n <= 7; n++){
       if(n < 7) qset(n);
       if(n == 7 && setnum > 0 && setOrder[setnum - 1] == 4) qset(7);
@@ -55,17 +55,17 @@ void runningKP(){
   if(key == 'e'){
     if(disp.equals("row")){
       disp = "enlarge";
-      show = serect;
+      show = select;
     } else if(disp.equals("enlarge")) disp = "row";
   }
   if(disp.equals("row")){
-    if(keyCode == RIGHT && setnum > 0 && serect < 3){
-      serect++;
-      qserect = 1;
+    if(keyCode == RIGHT && setnum > 0 && select < 3){
+      select++;
+      qselect = 1;
     }
-    if(keyCode == LEFT && setnum > 0 && serect > 2){
-      serect--;
-      qserect = 1;
+    if(keyCode == LEFT && setnum > 0 && select > 2){
+      select--;
+      qselect = 1;
     }
   }
   if(disp.equals("enlarge")){
@@ -74,18 +74,18 @@ void runningKP(){
   }
   if(key == 'x' && setnum < 5){
     setnum++;
-    qserect = 1;
-    qserectValidate();
+    qselect = 1;
+    qselectValidate();
   }
   if(key == 'z' && setnum > 0){
     setnum--;
-    qserect = 1;
-    qserectValidate();
+    qselect = 1;
+    qselectValidate();
   }
-  if(keyCode == UP && qserect > 1) qserect--;
+  if(keyCode == UP && qselect > 1) qselect--;
   if(keyCode == DOWN){
-    if(setnum > 0 && setOrder[setnum - 1] == 4 && qserect < 7) qserect++;
-    else if(qserect < 6) qserect++;
+    if(setnum > 0 && setOrder[setnum - 1] == 4 && qselect < 7) qselect++;
+    else if(qselect < 6) qselect++;
   }
   if(key == '1') inputSets(1);
   if(key == '2') inputSets(2);
@@ -97,16 +97,16 @@ void runningKP(){
 }
 
 void inputSets(int input){
-  if(setnum == 0) bSet.eval[evalOrder2[qserect - 1]] = input;
+  if(setnum == 0) bSet.eval[evalOrder2[qselect - 1]] = input;
   else{
-    if(setOrder[setnum - 1] == 4) sets[setOrder[setnum - 1]].eval[serect - 2][evalOrder[qserect - 1]] = input;
-    else sets[setOrder[setnum - 1]].eval[serect - 2][evalOrder2[qserect - 1]] = input;
+    if(setOrder[setnum - 1] == 4) sets[setOrder[setnum - 1]].eval[select - 2][evalOrder[qselect - 1]] = input;
+    else sets[setOrder[setnum - 1]].eval[select - 2][evalOrder2[qselect - 1]] = input;
   }
 }
 
-void qserectValidate(){
+void qselectValidate(){
   if(setnum > 0 && setOrder[setnum - 1] == 4){}
-  else if(qserect > 6) qserect = 6;
+  else if(qselect > 6) qselect = 6;
 }
 
 void qset(int n){//質問の実装
@@ -121,25 +121,25 @@ void qset(int n){//質問の実装
     case 7: HEIGHT = 820; break;
     default: HEIGHT = 0; break;
   }
-  if(qserect == n){
+  if(qselect == n){
     fill(255, 255, 0);
-    if(qserect > 1) text("↑", 50, HEIGHT - 15);
-    if(setnum > 0 && setOrder[setnum - 1] == 4 && qserect < 7) text("↓", 50, HEIGHT + 15);
-    else if(qserect < 6) text("↓", 50, HEIGHT + 15);
+    if(qselect > 1) text("↑", 50, HEIGHT - 15);
+    if(setnum > 0 && setOrder[setnum - 1] == 4 && qselect < 7) text("↓", 50, HEIGHT + 15);
+    else if(qselect < 6) text("↓", 50, HEIGHT + 15);
   }
     text("q." + n, width/16 + 40, HEIGHT); textAlign(LEFT);
     if(setnum > 0 && setOrder[setnum - 1] == 4){
       text(q[evalOrder[n - 1]], width*2/16, HEIGHT);
-      textAlign(RIGHT); text(sets[4].eval[serect - 2][evalOrder[n - 1]], width*14/16 + 20, HEIGHT);
+      textAlign(RIGHT); text(sets[4].eval[select - 2][evalOrder[n - 1]], width*14/16 + 20, HEIGHT);
     }else{
       text(q[evalOrder2[n - 1]], width*2/16, HEIGHT); textAlign(RIGHT);
       if(setnum == 0) text(bSet.eval[evalOrder2[n - 1]], width*14/16 + 20, HEIGHT);
-      else text(sets[setOrder[setnum - 1]].eval[serect - 2][evalOrder2[n - 1]], width*14/16 + 20, HEIGHT);
+      else text(sets[setOrder[setnum - 1]].eval[select - 2][evalOrder2[n - 1]], width*14/16 + 20, HEIGHT);
     }
     fill(255); textAlign(CENTER);
 }
 
-void serectSet(int n){
+void selectSet(int n){
   float HEIGHT;
   switch(n){
     case 1: HEIGHT = 1920/5/2+10; break;
@@ -147,10 +147,10 @@ void serectSet(int n){
     case 3: HEIGHT = width-1920/5/2-10; break;
     default: HEIGHT = 0; break;
   }
-  if(serect == n){
+  if(select == n){
     fill(255, 255, 0);
-    if(serect > 2 && setnum > 0) text("←", HEIGHT - 50, 300);
-    if(serect < 3 && setnum > 0) text("→", HEIGHT + 50, 300);
+    if(select > 2 && setnum > 0) text("←", HEIGHT - 50, 300);
+    if(select < 3 && setnum > 0) text("→", HEIGHT + 50, 300);
     rectMode(CENTER); rect(HEIGHT, 150, 1920/5+10, 1080/5+10);
   }
   text(n, HEIGHT, 300); fill(255);

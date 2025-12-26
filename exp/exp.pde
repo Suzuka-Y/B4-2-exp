@@ -4,12 +4,11 @@ import java.time.Period;
 PFont font;
 Table result;
 
-int PID = 3;
+int PID = 11;
 int state;
 boolean debug = false;
 
 void setup(){
-  frameRate(60);
   size(1200, 900);
   font = createFont("NotoSansJP-Regular.ttf", 24);
   textFont(font);
@@ -23,8 +22,8 @@ void setup(){
   target_SI_date = "year";
   approvable_SI = false;
   setnum = 0;
-  serect = 2;
-  qserect = 1;
+  select = 2;
+  qselect = 1;
   show = 1;
   year = 2010;
   month = 1;
